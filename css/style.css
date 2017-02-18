@@ -20,7 +20,11 @@
 5. Spacing
 6. General Overwrites
 ––––––––––––––––––––––––––––––––––––––––––––––––––*/
-
+body {
+  background: url('../img/sky-background.jpg') no-repeat center;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
 /* 1. Buttons
 ---------------- */

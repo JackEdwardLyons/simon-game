@@ -13,6 +13,7 @@ let   startButton   = document.querySelector('#start-button'),
  ------------------------*/
 let gameConfig = {
   score: 0,
+  round: 0,
   moves: {
     computer: [],
     human: []
@@ -30,6 +31,7 @@ function startGame() {
   if (gameConfig.mode !== null) {
     disable(gameModes);
     playSequence();
+    setMessage('round-count', `Round: ${++gameConfig.round}`)
   } else {
     alert('Please pick a game mode to begin!');
   }
@@ -40,6 +42,7 @@ function restartGame() {
   console.log('restart');
   gameConfig = {
     score: 0,
+    round: 0,
     moves: {
       computer: [],
       human: []
@@ -48,14 +51,17 @@ function restartGame() {
     gameStarted: false
   }
   enable(gameModes);
+  setMessage('message-box', 'Pick a game mode to begin');
+  setMessage('round-count', "Jack's Simon Game");
 }
+
 
 function humanError() {
   
 }
 
 function playSequence() {
-  setMessage("It's my turn!");
+  setMessage("message-box","It's my turn!");
   computerClick();
 }
 
@@ -106,7 +112,8 @@ function buzz(tile) {
   tile.classList.add('js-click');
   setTimeout(() => {
     tile.classList.remove('js-click');
-  }, 400)
+    setMessage("message-box","It's your turn!");
+  }, 500)
 }
 
 
@@ -114,8 +121,8 @@ function buzz(tile) {
 /* 
  * DOM Manipulations
  ----------------------*/
-function setMessage(msg) {
-  let messageBox = document.getElementById('message-box');
+function setMessage(el, msg) {
+  let messageBox = document.getElementById(el);
   messageBox.textContent = msg;
 }
 
