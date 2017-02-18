@@ -26,11 +26,13 @@ let gameConfig = {
  * Gameplay Logic
  ----------------------*/
 function startGame() {
+  console.log(gameConfig.mode);
   if (gameConfig.mode !== null) {
-    setMessage("It's your turn!");
     playSequence();
-  } 
-  alert('Please pick a game mode to begin!');
+  } else {
+    alert('Please pick a game mode to begin!');
+  }
+  
 }
 
 function restartGame() {
@@ -42,6 +44,11 @@ function humanError() {
 }
 
 function playSequence() {
+  setMessage("It's my turn!");
+  computerClick();
+}
+
+function addToSequence() {
   
 }
 
@@ -56,7 +63,7 @@ function humanClick(e) {
 }
 
 function computerClick() {
-  buzz(randomTile(simonTiles));
+  buzz(randomTile());
 }
 
 function getGameMode(e) {
@@ -72,11 +79,12 @@ function getGameMode(e) {
 /* 
  * Utility Functions 
  ----------------------*/
-function randomTile(tiles) {
+function randomTile(tiles = simonTiles) {
   const index = Math.floor( Math.random() * tiles.length );
   const tile = tiles[index];
   return tile;
 }
+
 
 function buzz(tile) {
   const audio = tile.children[0];
@@ -90,10 +98,22 @@ function buzz(tile) {
   }, 400)
 }
 
+
+
+/* 
+ * DOM Manipulations 
+ ----------------------*/
 function setMessage(msg) {
   let messageBox = document.getElementById('message-box');
   messageBox.textContent = msg;
 }
+
+function disable(element) {
+  return element.disabled = true;
+}
+
+
+
 
 /* 
  * Event Listeners 
