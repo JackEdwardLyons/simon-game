@@ -28,6 +28,7 @@ let gameConfig = {
 function startGame() {
   console.log(gameConfig.mode);
   if (gameConfig.mode !== null) {
+    disable(gameModes);
     playSequence();
   } else {
     alert('Please pick a game mode to begin!');
@@ -36,7 +37,17 @@ function startGame() {
 }
 
 function restartGame() {
-  
+  console.log('restart');
+  gameConfig = {
+    score: 0,
+    moves: {
+      computer: [],
+      human: []
+    },
+    mode: null,
+    gameStarted: false
+  }
+  enable(gameModes);
 }
 
 function humanError() {
@@ -101,7 +112,7 @@ function buzz(tile) {
 
 
 /* 
- * DOM Manipulations 
+ * DOM Manipulations
  ----------------------*/
 function setMessage(msg) {
   let messageBox = document.getElementById('message-box');
@@ -109,15 +120,18 @@ function setMessage(msg) {
 }
 
 function disable(element) {
-  return element.disabled = true;
+  return element.forEach(el => el.disabled = true);
 }
 
-
-
+function enable(element) {
+  return element.forEach(el => el.disabled = false);
+}
 
 /* 
  * Event Listeners 
  ----------------------*/
 startButton.addEventListener('click', startGame);
+restartButton.addEventListener('click', restartGame);
+
 gameModes.forEach(modeButton => modeButton.addEventListener('click', getGameMode));
 simonTiles.forEach(tile => tile.addEventListener('click', humanClick));
