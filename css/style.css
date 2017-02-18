@@ -1,0 +1,150 @@
+/* Simon Game CSS
+ * Date: 18 / 02 / 2017 
+ * Author: Jack Lyons
+ * Project: Simon Says 
+ * Certificate: Free Code Camp Front End Web Development
+ */
+
+
+/* Table of contents -- To be revised...
+––––––––––––––––––––––––––––––––––––––––––––––––––
+
+1. Buttons
+2. Animations
+3. Elements
+  3.1 - Containers
+  3.2 - Header
+  3.3 - Footer
+  3.4 - Typography
+4. Media Queries
+5. Spacing
+6. General Overwrites
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+
+
+/* 1. Buttons
+---------------- */
+
+
+/* Config buttons */
+
+.config-buttons .mui-btn {
+  width: 90%;
+}
+
+
+/* Simon game buttons */
+
+.simon-btn.mui-btn {
+  height: 150px;
+  width: 100%;
+}
+
+.simon-btn.mui-btn--blue,
+.simon-btn.mui-btn--blue:hover,
+.simon-btn.mui-btn--blue:focus {
+  background-color: steelblue;
+}
+
+.simon-btn.mui-btn--green,
+.simon-btn.mui-btn--green:hover,
+.simon-btn.mui-btn--green:focus {
+  background-color: greenyellow;
+}
+
+.simon-btn.mui-btn--red,
+.simon-btn.mui-btn--red:hover,
+.simon-btn.mui-btn--red:focus {
+  background-color: orangered;
+}
+
+.simon-btn.mui-btn--yellow,
+.simon-btn.mui-btn--yellow:hover,
+.simon-btn.mui-btn--yellow:focus {
+  background-color: gold;
+}
+
+.simon-btn.mui-btn:active,
+.simon-btn.mui-btn:hover {
+  background-color: black;
+  opacity: .7;
+  height: 150px;
+  width: 100%;
+}
+
+.js-click {
+  background-color: black !important;
+  opacity: .7;
+}
+
+
+/* 2. Animations
+------------------- */
+
+
+/* 3. Elements
+------------------ */
+
+
+/* 3.1 Container
+---------------- */
+
+.mui-panel.game-container,
+.mui-panel.game-settings {
+  background: #ededed;
+}
+
+.mui-panel.game-container {
+  margin: 50px auto;
+}
+
+
+/* 3.2 Header
+---------------- */
+
+
+
+h1.page-title {
+  margin-top: 10px;
+}
+
+
+/* 3.3 Footer
+---------------- */
+
+footer {
+  background-color: #ededed;
+  border-top: 1px solid #e0e0e0;
+  padding: 20px;
+}
+
+
+/* 4. Media Queries
+---------------------- */
+
+/* Flexi header on tablets and above */
+@media screen and (min-width: 767px) {
+  .flex-center-align {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .mui-col-sm-3 {
+    text-align: center;
+  }
+  button {
+    width: 90%;
+  }
+}
+
+
+
+/* 5. Spacing
+---------------------- */
+
+
+/* 6. General Overwrites
+-------------------------- */
