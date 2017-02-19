@@ -7,7 +7,6 @@ let   startButton   = document.querySelector('#start-button'),
       gameModes     = document.querySelectorAll('.game-mode'),
       simonTiles    = document.querySelectorAll('.simon-btn');
 
-
 /* 
  * Game configurations
  ------------------------*/
@@ -55,33 +54,32 @@ function restartGame() {
 }
 
 
-function humanError() {
-  
-}
-
-
 function playSequence() {
-  
   setMessage('round-count', `Round: ${gameConfig.round}`)
   if (gameConfig.round === 0) {
     // push a random num into computer moves
     addToSequence();  
   }
+  
   setTimeout(() => {
     computerClick();
   }, 1200)
+  
   setMessage("message-box","It's my turn!");
+  // disallow human clicks during computer clicks
+  simonTiles.forEach(tile => tile.style.pointerEvents = 'none');
 }
 
 
 function addToSequence() {
   if (gameConfig.round > 19) {
-    endgame(); // reset logic to go in endGame
+    setMessage("message-box","You WIN!");
+    restartGame(); // reset logic to go in endGame
   }
+  
   gameConfig.moves.computer.push(randomTile());
   gameConfig.round++
 }
-
 
 
 /* 
@@ -92,25 +90,19 @@ function humanClick(e) {
   buzz(clickedTile);
   // push the human move into the human array
   gameConfig.moves.human.push(clickedTile);
-  
-  console.log("human moves", gameConfig.moves.human);
   compareClicks();
 }
 
 
 function computerClick() {
   let computerSequence = gameConfig.moves.computer;
-  let maxRounds = computerSequence.length,
-      roundCount = 0;
-  
+  let maxRounds = computerSequence.length;
   
   const delay = (amount = number) => {
     return new Promise((resolve) => {
       setTimeout(resolve, amount);
-      
     });
-    
-  };
+  }
   
   async function loop() {
     for (let i = 0; i < maxRounds; i++) {
@@ -119,10 +111,11 @@ function computerClick() {
       await delay(1000);
     }
     setMessage("message-box","It's your turn!");
+    simonTiles.forEach(tile => tile.style.pointerEvents = 'auto');
   }
+  
   loop();
 }
-
 
 
 function getGameMode(e) {
@@ -145,16 +138,15 @@ function compareClicks() {
   });
   
   if (humanSequence.length === computerSequence.length) {
-    console.log(comparison);
     if (comparison) {
       addToSequence();
       playSequence();
       gameConfig.moves.human = [];
-      console.log(gameConfig.moves.human, gameConfig.moves.computer);
+    } else {
+      alert("mismatch, you lose");
+      restartGame();
     }
-    
   }
-  
 }
 
 
@@ -164,9 +156,6 @@ function compareClicks() {
 function randomTile(tiles = simonTiles) {
   const index = Math.floor( Math.random() * tiles.length );
   const tile = tiles[index];
-  // because the computer is the only one generating a random tile,
-  // it is reasonable to push the tile into the computer array.
-  // gameConfig.moves.computer.push(tile);
   return tile;
 }
 
