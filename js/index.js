@@ -30,7 +30,7 @@ function startGame() {
   if (gameConfig.mode !== null) {
     disable(gameModes);
     playSequence();
-    setMessage('round-count', `Round: ${++gameConfig.round}`)
+    setMessage('round-count', `Round: ${gameConfig.round = 1}`)
   } else {
     alert('Please pick a game mode to begin!');
   }
@@ -61,14 +61,16 @@ function humanError() {
 
 
 function playSequence() {
-  setMessage("message-box","It's my turn!");
+  
   setMessage('round-count', `Round: ${gameConfig.round}`)
   if (gameConfig.round === 0) {
     // push a random num into computer moves
-    randomTile();
+    addToSequence();  
   }
-  computerClick();
-  setMessage("message-box","It's your turn!");
+  setTimeout(() => {
+    computerClick();
+  }, 1200)
+  setMessage("message-box","It's my turn!");
 }
 
 
@@ -91,19 +93,36 @@ function humanClick(e) {
   // push the human move into the human array
   gameConfig.moves.human.push(clickedTile);
   
-  console.log("game moves", gameConfig.moves);
+  console.log("human moves", gameConfig.moves.human);
   compareClicks();
 }
 
 
 function computerClick() {
   let computerSequence = gameConfig.moves.computer;
-  // buzz for each item within the sequence
-  computerSequence.forEach((tile, index) => {
-    buzz(computerSequence[index]);
-  });
+  let maxRounds = computerSequence.length,
+      roundCount = 0;
   
+  
+  const delay = (amount = number) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, amount);
+      
+    });
+    
+  };
+  
+  async function loop() {
+    for (let i = 0; i < maxRounds; i++) {
+      buzz(computerSequence[i]);
+      console.log("length", gameConfig.round);
+      await delay(1000);
+    }
+    setMessage("message-box","It's your turn!");
+  }
+  loop();
 }
+
 
 
 function getGameMode(e) {
@@ -115,26 +134,27 @@ function getGameMode(e) {
 }
 
 
-function compareClicks(e) {
+function compareClicks() {
   let computerSequence = gameConfig.moves.computer,
       fistComputerMove = computerSequence[0],
       humanSequence    = gameConfig.moves.human,
       firstHumanMove   = humanSequence[0];
   
-
-//    const comparison = computerSequence.every((tile, index) => {
-//      return tile === humanSequence[index];
-//    });
-    
-    if (firstHumanMove !== fistComputerMove) {
-      alert('you lose');
-      restartGame();
-    } else {
-      setMessage('message-box', 'Nice work, keep going!');
-      console.log('comparison', gameConfig.moves)
-      // addToSequence();
-      // playSequence();
+  const comparison = computerSequence.every((tile, index) => {
+    return tile === humanSequence[index];
+  });
+  
+  if (humanSequence.length === computerSequence.length) {
+    console.log(comparison);
+    if (comparison) {
+      addToSequence();
+      playSequence();
+      gameConfig.moves.human = [];
+      console.log(gameConfig.moves.human, gameConfig.moves.computer);
     }
+    
+  }
+  
 }
 
 
@@ -146,7 +166,7 @@ function randomTile(tiles = simonTiles) {
   const tile = tiles[index];
   // because the computer is the only one generating a random tile,
   // it is reasonable to push the tile into the computer array.
-  gameConfig.moves.computer.push(tile);
+  // gameConfig.moves.computer.push(tile);
   return tile;
 }
 
@@ -160,7 +180,9 @@ function buzz(tile) {
   tile.classList.add('js-click');
   setTimeout(() => {
     tile.classList.remove('js-click');
-  }, 500)
+    
+  }, 500);
+
 }
 
 
