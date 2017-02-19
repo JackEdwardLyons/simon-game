@@ -27,7 +27,6 @@ let gameConfig = {
  * Gameplay Logic
  ----------------------*/
 function startGame() {
-  console.log(gameConfig.mode);
   if (gameConfig.mode !== null) {
     disable(gameModes);
     playSequence();
@@ -35,8 +34,8 @@ function startGame() {
   } else {
     alert('Please pick a game mode to begin!');
   }
-  
 }
+
 
 function restartGame() {
   console.log('restart');
@@ -60,13 +59,25 @@ function humanError() {
   
 }
 
+
 function playSequence() {
   setMessage("message-box","It's my turn!");
+  setMessage('round-count', `Round: ${gameConfig.round}`)
+  if (gameConfig.round === 0) {
+    // push a random num into computer moves
+    randomTile();
+  }
   computerClick();
+  setMessage("message-box","It's your turn!");
 }
 
+
 function addToSequence() {
-  
+  if (gameConfig.round > 19) {
+    endgame(); // reset logic to go in endGame
+  }
+  gameConfig.moves.computer.push(randomTile());
+  gameConfig.round++
 }
 
 
@@ -75,22 +86,56 @@ function addToSequence() {
  * Click Logic 
  ----------------------*/
 function humanClick(e) {
-  const clickedTile = e.target.offsetParent
+  const clickedTile = e.target.offsetParent;
   buzz(clickedTile);
+  // push the human move into the human array
+  gameConfig.moves.human.push(clickedTile);
+  
+  console.log("game moves", gameConfig.moves);
+  compareClicks();
 }
+
 
 function computerClick() {
-  buzz(randomTile());
+  let computerSequence = gameConfig.moves.computer;
+  // buzz for each item within the sequence
+  computerSequence.forEach((tile, index) => {
+    buzz(computerSequence[index]);
+  });
+  
 }
 
+
 function getGameMode(e) {
-  console.log(e.target.offsetParent.id);
+  // the offsetParent is because when the button is clicked,
+  // it adds a span to create the effects (mui library default) 
   return (e.target.offsetParent.id) === 'normal-mode'
     ? gameConfig.mode = 'normal'
     : gameConfig.mode = 'strict'
 }
 
 
+function compareClicks(e) {
+  let computerSequence = gameConfig.moves.computer,
+      fistComputerMove = computerSequence[0],
+      humanSequence    = gameConfig.moves.human,
+      firstHumanMove   = humanSequence[0];
+  
+
+//    const comparison = computerSequence.every((tile, index) => {
+//      return tile === humanSequence[index];
+//    });
+    
+    if (firstHumanMove !== fistComputerMove) {
+      alert('you lose');
+      restartGame();
+    } else {
+      setMessage('message-box', 'Nice work, keep going!');
+      console.log('comparison', gameConfig.moves)
+      // addToSequence();
+      // playSequence();
+    }
+}
 
 
 /* 
@@ -99,6 +144,9 @@ function getGameMode(e) {
 function randomTile(tiles = simonTiles) {
   const index = Math.floor( Math.random() * tiles.length );
   const tile = tiles[index];
+  // because the computer is the only one generating a random tile,
+  // it is reasonable to push the tile into the computer array.
+  gameConfig.moves.computer.push(tile);
   return tile;
 }
 
@@ -108,11 +156,10 @@ function buzz(tile) {
   // reset audio play on each click
   audio.currentTime = 0;
   audio.play();
-  
+  // add and remove the color change
   tile.classList.add('js-click');
   setTimeout(() => {
     tile.classList.remove('js-click');
-    setMessage("message-box","It's your turn!");
   }, 500)
 }
 
