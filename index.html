@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>material-simon-game</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -28,78 +23,76 @@
 </head>
 
 <body>
-  <!-- example content -->
-  <div class="mui-container">
-    <div class="mui-panel game-settings">
+    <!-- example content -->
+    <div class="mui-container">
+      <div class="mui-panel game-settings">
 
 
-      <div class="mui-row flex-center-align">
-        <div class="mui-col-md-6">
-          <header>
-            <h1 class="page-title mui--text-center"><span id="round-count">Jack's Simon Game</span><br>
+        <div class="mui-row flex-center-align">
+          <div class="mui-col-md-6">
+            <header>
+              <h1 class="page-title mui--text-center"><span id="round-count">Jack's Simon Game</span><br>
               <small id="message-box">
                 A front end project for Free Code Camp
               </small>
             </h1>
-          </header>
+            </header>
+          </div>
+          <div class="mui-col-md-6 mui--text-center config-buttons">
+            <div class="mui-col-sm-6">
+              <button id="start-button" class="mui-btn mui-btn--raised">START !</button>
+            </div>
+            <div class="mui-col-sm-6">
+              <button id="restart-button" class="mui-btn mui-btn--raised mui-btn--danger">RESTART</button>
+            </div>
+            <div class="mui-col-sm-6">
+              <button id="strict-mode" class="mui-btn mui-btn--raised mui-btn--accent game-mode">STRICT</button>
+            </div>
+            <div class="mui-col-sm-6">
+              <button id="normal-mode" class="mui-btn mui-btn--raised mui-btn--primary game-mode">NORMAL</button>
+            </div>
+          </div>
         </div>
-        <div class="mui-col-md-6 mui--text-center config-buttons">
-          <div class="mui-col-sm-6">
-            <button id="start-button" class="mui-btn mui-btn--raised">START !</button>
-          </div>
-          <div class="mui-col-sm-6">
-            <button id="restart-button" class="mui-btn mui-btn--raised mui-btn--danger">RESTART</button>
-          </div>
-          <div class="mui-col-sm-6">
-            <button id="strict-mode" class="mui-btn mui-btn--raised mui-btn--accent game-mode">STRICT</button>
-          </div>
-          <div class="mui-col-sm-6">
-            <button id="normal-mode" class="mui-btn mui-btn--raised mui-btn--primary game-mode">NORMAL</button>
-          </div>
-        </div>
+        <!-- ./row -->
       </div>
-      <!-- ./row -->
-    </div>
-    <!-- /.mui-panel -->
+      <!-- /.mui-panel -->
 
-    <div class="mui-panel game-container">
-      <div class="mui-row">
+      <div class="mui-panel game-container">
+        <div class="mui-row">
 
-        <div class="mui-col-xs-6 mui--text-center">
-          <button class="mui-btn mui-btn--raised simon-btn mui-btn--blue">
+          <div class="mui-col-xs-6 mui--text-center">
+            <button id="0" class="mui-btn mui-btn--raised simon-btn mui-btn--blue">
             <audio src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
           </button>
-        </div>
-        <div class="mui-col-xs-6 mui--text-center">
-          <button class="mui-btn mui-btn--raised simon-btn mui-btn--yellow">
+          </div>
+          <div class="mui-col-xs-6 mui--text-center">
+            <button id="1" class="mui-btn mui-btn--raised simon-btn mui-btn--yellow">
             <audio src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"></audio></button>
-        </div>
+          </div>
 
-        <div class="mui-col-xs-6 mui--text-center">
-          <button class="mui-btn mui-btn--raised simon-btn mui-btn--green">
+          <div class="mui-col-xs-6 mui--text-center">
+            <button id="2" class="mui-btn mui-btn--raised simon-btn mui-btn--green">
             <audio src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"></audio></button>
-        </div>
-        <div class="mui-col-xs-6 mui--text-center">
-          <button class="mui-btn mui-btn--raised simon-btn  mui-btn--red">
+          </div>
+          <div class="mui-col-xs-6 mui--text-center">
+            <button id="3" class="mui-btn mui-btn--raised simon-btn  mui-btn--red">
             <audio src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></audio></button>
+          </div>
+
         </div>
-
+        <!-- /.mui-row -->
       </div>
-      <!-- /.mui-row -->
+      <!-- /.mui-panel -->
     </div>
-    <!-- /.mui-panel -->
-  </div>
-  <!-- /.mui-container -->
+    <!-- /.mui-container -->
 
 
-  <footer>
-    <div class="mui-container mui--text-center">
-      Made with ♥ by <a target="_blank" href="http://jacklyons.me">Jack</a>
-    </div>
-  </footer>
-</body>
+    <footer>
+      <div class="mui-container mui--text-center">
+        Made with ♥ by <a target="_blank" href="http://jacklyons.me">Jack</a>
+      </div>
+    </footer>
 
-</html>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 
     <script src="js/index.js"></script>

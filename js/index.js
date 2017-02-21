@@ -1,4 +1,9 @@
-
+/* Welcome to my code
+ * Built by Jack Lyons
+ * www.jacklyons.me
+ */
+ 
+ 
 /* 
  * Set variables
  ----------------------*/
@@ -11,11 +16,11 @@ let   startButton   = document.querySelector('#start-button'),
  * Game configurations
  ------------------------*/
 let gameConfig = {
-  score: 0,
   round: 0,
   moves: {
     computer: [],
-    human: []
+    human: [],
+    copy: []
   },
   mode: null,
   gameStarted: false
@@ -39,7 +44,6 @@ function startGame() {
 function restartGame() {
   console.log('restart');
   gameConfig = {
-    score: 0,
     round: 0,
     moves: {
       computer: [],
@@ -98,7 +102,7 @@ function computerClick() {
   let computerSequence = gameConfig.moves.computer;
   let maxRounds = computerSequence.length;
   
-  const delay = (amount = number) => {
+  const delay = (amount) => {
     return new Promise((resolve) => {
       setTimeout(resolve, amount);
     });
@@ -118,24 +122,37 @@ function computerClick() {
 }
 
 
-function getGameMode(e) {
-  // the offsetParent is because when the button is clicked,
-  // it adds a span to create the effects (mui library default) 
-  return (e.target.offsetParent.id) === 'normal-mode'
-    ? gameConfig.mode = 'normal'
-    : gameConfig.mode = 'strict'
-}
 
 
 function compareClicks() {
   let computerSequence = gameConfig.moves.computer,
-      fistComputerMove = computerSequence[0],
-      humanSequence    = gameConfig.moves.human,
-      firstHumanMove   = humanSequence[0];
+      humanSequence    = gameConfig.moves.human;
+  
+  
+//    
+//  for (let i = 0; i < copiedSequence.length; i++) {
+//    if ( humanSequence[i] !== copiedSequence[i]) {
+//      if (gameConfig.mode === 'strict') {
+//        alert("mismatch, you lose");
+//        restartGame();
+//      } else {
+//        alert('Woops! Try again!');
+//        playSequence();
+//        gameConfig.moves.human = [];
+//      }
+//    } else {
+//      addToSequence();
+//      playSequence();
+//      gameConfig.moves.human = [];
+//    }
+//  }
+  
   
   const comparison = computerSequence.every((tile, index) => {
     return tile === humanSequence[index];
   });
+
+
   
   if (humanSequence.length === computerSequence.length) {
     if (comparison) {
@@ -143,8 +160,14 @@ function compareClicks() {
       playSequence();
       gameConfig.moves.human = [];
     } else {
-      alert("mismatch, you lose");
-      restartGame();
+      if (gameConfig.mode === 'strict') {
+        alert("mismatch, you lose");
+        restartGame();
+      } else {
+        alert('Woops! Try again!');
+        playSequence();
+        gameConfig.moves.human = [];
+      }
     }
   }
 }
@@ -159,6 +182,14 @@ function randomTile(tiles = simonTiles) {
   return tile;
 }
 
+function getGameMode(e) {
+  // the offsetParent is because when the button is clicked,
+  // it adds a span to create the effects (mui library default) 
+  return (e.target.offsetParent.id) === 'normal-mode'
+    ? gameConfig.mode = 'normal'
+    : gameConfig.mode = 'strict'
+}
+
 
 function buzz(tile) {
   const audio = tile.children[0];
@@ -169,11 +200,9 @@ function buzz(tile) {
   tile.classList.add('js-click');
   setTimeout(() => {
     tile.classList.remove('js-click');
-    
   }, 500);
 
 }
-
 
 
 /* 
