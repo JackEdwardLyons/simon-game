@@ -122,38 +122,16 @@ function computerClick() {
 }
 
 
-
-
 function compareClicks() {
   let computerSequence = gameConfig.moves.computer,
       humanSequence    = gameConfig.moves.human;
-  
-  
-//    
-//  for (let i = 0; i < copiedSequence.length; i++) {
-//    if ( humanSequence[i] !== copiedSequence[i]) {
-//      if (gameConfig.mode === 'strict') {
-//        alert("mismatch, you lose");
-//        restartGame();
-//      } else {
-//        alert('Woops! Try again!');
-//        playSequence();
-//        gameConfig.moves.human = [];
-//      }
-//    } else {
-//      addToSequence();
-//      playSequence();
-//      gameConfig.moves.human = [];
-//    }
-//  }
-  
+      
   
   const comparison = computerSequence.every((tile, index) => {
     return tile === humanSequence[index];
   });
 
 
-  
   if (humanSequence.length === computerSequence.length) {
     if (comparison) {
       addToSequence();
