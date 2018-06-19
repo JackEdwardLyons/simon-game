@@ -42,7 +42,6 @@ function startGame() {
 
 
 function restartGame() {
-  console.log('restart');
   gameConfig = {
     round: 0,
     moves: {
@@ -90,7 +89,7 @@ function addToSequence() {
  * Click Logic 
  ----------------------*/
 function humanClick(e) {
-  const clickedTile = e.target.offsetParent;
+  const clickedTile = e.target;
   buzz(clickedTile);
   // push the human move into the human array
   gameConfig.moves.human.push(clickedTile);
@@ -111,7 +110,6 @@ function computerClick() {
   async function loop() {
     for (let i = 0; i < maxRounds; i++) {
       buzz(computerSequence[i]);
-      console.log("length", gameConfig.round);
       await delay(1000);
     }
     setMessage("message-box","It's your turn!");
